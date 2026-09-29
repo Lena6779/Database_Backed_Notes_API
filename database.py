@@ -12,6 +12,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_db():
+    """Give each request its own database session, and always CLOSE it afterwards. 
+    Also endpoints get a session with: db: Session = Depends(get_db)"""
     db = SessionLocal()
     try: 
         yield db
